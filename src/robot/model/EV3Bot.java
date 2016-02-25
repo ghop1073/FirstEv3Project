@@ -2,7 +2,12 @@ package robot.model;
 
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
-
+import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.motor.Motor;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.utility.Delay;
+import lejos.robotics.chassis.*;
+import lejos.robotics.navigation.MovePilot;
 
 public class EV3Bot
 {
@@ -12,17 +17,59 @@ public class EV3Bot
 	private int yPosition;
 	private long waitTime;
 	
+	private MovePilot botPilot;
+	
+	private EV3UltrasonicSensor distanceSensor;
+	private float [] ultrasonicSamples;
+	
 	public EV3Bot()
 	{
 		this.botMessage = "Gage codes gageBot";
 		this.xPosition = 50;
 		this.yPosition = 50;
 		this.waitTime = 4000;
+		
+		distanceSensor= new EV3UltrasonicSensor(LocalEV3.get().getPort("S1"));
+		distanceSensor.enable();
+		setupPilot();
+	}
+	
+	public void setupPilot()
+	{
+		Wheel leftWheel = WheeledChassis.modelWheel(Motor.A, 55.0).offset(-72);
+		Wheel rightWheel = WheeledChassis.modelWheel(Motor.B, 55.0).offset(72);
+		Chassis baseChassis = new WheeledChassis(new Wheel []{leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
+		botPilot = new MovePilot(baseChassis);
 	}
 	
 	public void driveRoom()
 	{
-		
+		ultrasonicSamples = new float [distanceSensor.sampleSize()];
+		distanceSensor.fetchSample(ultrasonicSamples, 0);
+		botPilot.rotate(180);
+		botPilot.travel(320.04);
+		botPilot.rotate(90);
+		if(ultrasonicSamples[0] < 133.35)
+		{
+			botPilot.rotate(90);
+			botPilot.travel(133.15);
+			botPilot.rotate(-90);
+			botPilot.travel(960.12);
+			botPilot.rotate(90);
+			botPilot.travel(906.78);
+			botPilot.rotate(90);
+			botPilot.travel(213.36);
+		}
+		else
+		{
+			botPilot.rotate(180);
+			botPilot.travel(906.78);
+			botPilot.rotate(-90);
+			botPilot.travel(960.12);
+			botPilot.rotate(-90);
+			botPilot.travel(186.69);
+			
+		}
 	}
 	
 	public void displayMessage()

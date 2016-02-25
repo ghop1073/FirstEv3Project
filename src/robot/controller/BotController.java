@@ -15,7 +15,7 @@ public class BotController
 	
 	public BotController()
 	{
-		this.message = "Programming Lego robots with Java";
+		this.message = "Programming Legos robots with Java";
 		this.xPosition = 10;
 		this.yPosition = 10;
 		this.waitTime = 4000;
