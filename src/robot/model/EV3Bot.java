@@ -46,30 +46,30 @@ public class EV3Bot
 	{
 		ultrasonicSamples = new float [distanceSensor.sampleSize()];
 		distanceSensor.fetchSample(ultrasonicSamples, 0);
-		botPilot.rotate(180);
-		botPilot.travel(320.04);
-		botPilot.rotate(90);
-		if(ultrasonicSamples[0] < 133.35)
+		botPilot.rotate(160);
+		botPilot.travel(4000.04);
+		botPilot.rotate(-90);
+		if(ultrasonicSamples[0] < 133003.5)
 		{
+			botPilot.rotate(-45);
+			botPilot.travel(1330.15);
 			botPilot.rotate(90);
-			botPilot.travel(133.15);
+			botPilot.travel(10000.12);
 			botPilot.rotate(-90);
-			botPilot.travel(960.12);
-			botPilot.rotate(90);
-			botPilot.travel(906.78);
-			botPilot.rotate(90);
-			botPilot.travel(213.36);
+			botPilot.travel(9060.78);
+			botPilot.rotate(-90);
+			botPilot.travel(2130.36);
 		}
-		else
-		{
-			botPilot.rotate(180);
-			botPilot.travel(906.78);
-			botPilot.rotate(-90);
-			botPilot.travel(960.12);
-			botPilot.rotate(-90);
-			botPilot.travel(186.69);
+//		else
+//		{
+//			botPilot.rotate(180);
+//			botPilot.travel(9060.78);
+//			botPilot.rotate(-90);
+//			botPilot.travel(9600.12);
+//			botPilot.rotate(-90);
+//			botPilot.travel(1860.69);
 			
-		}
+//		}
 	}
 	
 	public void displayMessage()
