@@ -1,7 +1,7 @@
 package robot.controller;
 
 
-public class GageRunner
+public class GageRobot1Runner
 {
 
 	public static void main(String [] args)

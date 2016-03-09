@@ -1,4 +1,4 @@
-package robot.model;
+ package robot.model;
 
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
@@ -40,6 +40,7 @@ public class EV3Bot
 		Wheel rightWheel = WheeledChassis.modelWheel(Motor.B, 55.0).offset(72);
 		Chassis baseChassis = new WheeledChassis(new Wheel []{leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 		botPilot = new MovePilot(baseChassis);
+		botPilot.setLinearSpeed(6000);
 	}
 	
 	public void driveRoom()
@@ -47,29 +48,34 @@ public class EV3Bot
 		ultrasonicSamples = new float [distanceSensor.sampleSize()];
 		distanceSensor.fetchSample(ultrasonicSamples, 0);
 		botPilot.rotate(160);
-		botPilot.travel(4000.04);
-		botPilot.rotate(-90);
-		if(ultrasonicSamples[0] < 133003.5)
+		botPilot.travel(3500);
+		botPilot.rotate(-65);
+//		while(ultrasonicSamples[0] < .05)
+//		{
+//			botPilot.travel(-100);
+//			botPilot.rotate(-60);
+//		}
+		if(ultrasonicSamples[0] < 200000)
 		{
-			botPilot.rotate(-45);
+
+			botPilot.rotate(-70);
 			botPilot.travel(1330.15);
-			botPilot.rotate(90);
+			botPilot.rotate(50);
 			botPilot.travel(10000.12);
-			botPilot.rotate(-90);
-			botPilot.travel(9060.78);
+			botPilot.rotate(-75);
+			botPilot.travel(10000);
 			botPilot.rotate(-90);
 			botPilot.travel(2130.36);
 		}
-//		else
-//		{
-//			botPilot.rotate(180);
-//			botPilot.travel(9060.78);
-//			botPilot.rotate(-90);
-//			botPilot.travel(9600.12);
-//			botPilot.rotate(-90);
-//			botPilot.travel(1860.69);
-			
-//		}
+		if(ultrasonicSamples[0] > 200000)
+		{
+			botPilot.rotate(180);
+			botPilot.travel(9060.78);
+			botPilot.rotate(-90);
+			botPilot.travel(9600.12);
+			botPilot.rotate(-90);
+			botPilot.travel(1860.69);
+		}
 	}
 	
 	public void displayMessage()
