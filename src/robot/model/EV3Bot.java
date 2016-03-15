@@ -40,33 +40,30 @@ public class EV3Bot
 		Wheel rightWheel = WheeledChassis.modelWheel(Motor.B, 55.0).offset(72);
 		Chassis baseChassis = new WheeledChassis(new Wheel []{leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 		botPilot = new MovePilot(baseChassis);
-		botPilot.setLinearSpeed(6000);
+		botPilot.setLinearSpeed(20000);
 	}
 	
 	public void driveRoom()
 	{
 		ultrasonicSamples = new float [distanceSensor.sampleSize()];
 		distanceSensor.fetchSample(ultrasonicSamples, 0);
-		botPilot.rotate(160);
-		botPilot.travel(3500);
-		botPilot.rotate(-65);
-//		while(ultrasonicSamples[0] < .05)
-//		{
-//			botPilot.travel(-100);
-//			botPilot.rotate(-60);
-//		}
-		if(ultrasonicSamples[0] < 200000)
+		if(ultrasonicSamples[0] < 56)
 		{
-
-			botPilot.rotate(-70);
-			botPilot.travel(1330.15);
-			botPilot.rotate(50);
-			botPilot.travel(10000.12);
+			botPilot.rotate(160);
+			botPilot.travel(1900);
+			botPilot.rotate(-60);
+			botPilot.travel(10000);
 			botPilot.rotate(-75);
 			botPilot.travel(10000);
 			botPilot.rotate(-90);
 			botPilot.travel(2130.36);
+			
 		}
+//		while(ultrasonicSamples[0] < 1)
+//		{
+//			botPilot.travel(-100);
+//			botPilot.rotate(-60);
+//		}
 		if(ultrasonicSamples[0] > 200000)
 		{
 			botPilot.rotate(180);
